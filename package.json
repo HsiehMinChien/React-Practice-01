@@ -91,6 +91,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
+    "axios": "^0.17.1",
     "prop-types": "^15.6.0"
   }
 }
