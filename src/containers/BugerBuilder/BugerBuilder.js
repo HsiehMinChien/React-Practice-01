@@ -27,9 +27,10 @@ class BugerBuilder extends Component {
     }
 
     componentDidMount = () => {
+        //console.log(this.props);
         axios.get('/ingredients.json')
             .then(response => {
-                console.log(response);
+                //console.log(response);
                 this.setState({
                     ingredients: response.data
                 })
@@ -80,7 +81,7 @@ class BugerBuilder extends Component {
         const oldIngredients = this.state.ingredients[type];
         if(oldIngredients <= 0) { return; }
         const newIngredient = oldIngredients - 1;
-        console.log(oldIngredients[type]);
+        //console.log(oldIngredients[type]);
         const updateIngredients = { ...this.state.ingredients };
         updateIngredients[type] = newIngredient;
 
@@ -116,6 +117,7 @@ class BugerBuilder extends Component {
 
     continuePurchasingHandler = () => {
         //alert('You get this burger!!')
+        /* More to ContactData.js
         this.setState({
             loading: true
         })
@@ -143,11 +145,24 @@ class BugerBuilder extends Component {
                 })
                 console.log(error)
             })
+            */
         
+        const queryParams = [];
+        for (let i in this.state.ingredients) {
+            //console.log(i)
+            //console.log(encodeURIComponent(i)+'='+encodeURIComponent(this.state.ingredients[i]))
+            queryParams.push(encodeURIComponent(i)+'='+encodeURIComponent(this.state.ingredients[i]))
+        }
+        queryParams.push('price='+this.state.totalprice)
+        const queryString = queryParams.join('&');
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
+        });
     }
 
     render() {
-        console.log(this.state.ingredients)
+        //console.log(this.state.ingredients)
 
         let orderpage = null;
         let burger = this.state.error ? <p style={{textAlign: 'center'}}>Loading burger ingredients data fail</p>  :<Spinner />;

@@ -1,9 +1,11 @@
 import React from 'react';
 import classes from './Burger.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
+import {withRouter} from 'react-router-dom';
 
 const burger = ( props ) => {
-    
+    //console.log('burger.js')
+    //console.log(props)
     let transferIngredients = Object.keys(props.ingredients)
                                       .map(igkey => 
                                         { return [...Array(props.ingredients[igkey])].map((_,id) => {
@@ -11,7 +13,7 @@ const burger = ( props ) => {
                                             })
                                         }).reduce((arr, el) => arr.concat(el),[])
 
-    console.log(transferIngredients)
+    //console.log(transferIngredients)
     if(transferIngredients.length === 0) {
         transferIngredients = <p>Please add some ingredients!!</p>
     }
@@ -25,4 +27,4 @@ const burger = ( props ) => {
     )
 }
 
-export default burger
+export default withRouter(burger)
